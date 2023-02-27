@@ -34,7 +34,7 @@ const existeCurso = async( nombre = '' ) => {
     //Verficar si el curso existe
     const existeCurso = await Curso.findOne( { nombre } );
     if ( existeCurso) {
-        throw new Error(`El curso ${ nombre }, ya esta registrado en la DB `);
+        throw new Error(`El curso de ${ nombre }, ya esta registrado en la DB `);
     }
 }
 

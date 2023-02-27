@@ -5,7 +5,7 @@ const { esMaestroRole } = require('../middlewares/validar-roles');
 
 const router = Router();
 
-router.get('/cursosAsignados/:id', [
+router.get('/cursos/:id', [
     validarJWT
 ], getAsignacion);
 

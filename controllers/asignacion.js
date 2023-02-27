@@ -1,15 +1,15 @@
-const {response, request} = require('express');
+const { response, request } = require('express');
 
 //Modelos
 const Asignacion = require('../models/asignacion');
 
 const getAsignacion = async (req = request, res = response) => {
-    const {params} = req.params;
+    const { params } = req.params;
     const listaDeAsignaciones = await Promise.all([
         Asignacion.countDocuments(params),
         Asignacion.find(params)
-        .populate('curso', 'nombre')
-        .populate('usuario', 'nombre')
+            .populate('curso', 'nombre')
+            .populate('usuario', 'nombre')
     ]);
 
     res.json({
@@ -19,16 +19,16 @@ const getAsignacion = async (req = request, res = response) => {
 }
 
 const postAsignacion = async (req = request, res = response) => {
-    const {curso, usuario} = req.body;
-    
-    const totalAsignaciones = await Promise.all([
+    const { curso, usuario } = req.body;
+
+    const totalDeAsignaciones = await Promise.all([
         Asignacion.countDocuments(usuario),
     ]);
-    if(totalAsignaciones == 3) {
+    if (totalDeAsignaciones == 3) {
         res.status(201).json({
             msg: '¡Ups! Solo puedes asignarte a un maximo de 3 cursos'
         });
-    }else {
+    } else {
         const data = {
             curso,
             usuario
@@ -39,23 +39,23 @@ const postAsignacion = async (req = request, res = response) => {
 
         res.status(201).json({
             msg: 'POST API Asignacion',
-            totalAsignaciones,
+            totalDeAsignaciones,
             asignacion
         })
 
     }
 }
 
-const putAsignacion = async(req = request, res = response) => {
-    const {id} = req.params;
-    const {curso, usuario} = req.body;
+const putAsignacion = async (req = request, res = response) => {
+    const { id } = req.params;
+    const { curso, usuario } = req.body;
 
     const data = {
         curso,
         usuario
     }
 
-    const asignacionEditada = await Asignacion.findOneAndReplace(id, data, {new: true});
+    const asignacionEditada = await Asignacion.findOneAndReplace(id, data, { new: true });
 
     res.json({
         msg: 'PUT API Asignacion',
@@ -63,10 +63,10 @@ const putAsignacion = async(req = request, res = response) => {
     })
 }
 
-const deleteAsignacion = async(req = request, res = response) => {
-    const {id} = req.params;
+const deleteAsignacion = async (req = request, res = response) => {
+    const { id } = req.params;
 
-    const asignacionEliminada = await Asignacion.findOneAndDelete(id, {new: true});
+    const asignacionEliminada = await Asignacion.findOneAndDelete(id, { new: true });
 
     res.json({
         msg: 'DELETE API Asignacion',

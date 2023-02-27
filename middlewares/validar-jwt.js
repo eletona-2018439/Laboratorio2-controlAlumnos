@@ -24,7 +24,7 @@ const validarJWT = async( req = request, res = response, next ) => {
         //Verificar el uid del usuario, si no existiera
         if ( !usuario ) {
             return res.status(401).json({
-                msg: 'Token no válido - Usuario no existe en la base de datos'
+                msg: 'Token no válido - El usuario no existe en la base de datos'
             });
         }
 

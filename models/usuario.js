@@ -19,6 +19,9 @@ const UsuarioSchema = Schema({
         enum: ['ROL_MAESTRO', 'ROL_ALUMNO'],
         default: 'ROL_ALUMNO'
     }, 
+    cursos: [
+        { type: Schema.Types.ObjectId, ref: 'curso' 
+    }],
     estado: {
         type: Boolean,
         default: true
